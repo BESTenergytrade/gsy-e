@@ -9,7 +9,7 @@ try:
         REQUIREMENTS = [r.partition("#")[0] for r in req if not r.startswith("-e")]
         REQUIREMENTS.extend(
             [f"gsy-framework @ "
-             f"git+https://github.com/gridsingularity/gsy-framework.git@{gsy_framework_branch}"
+             f"git+https://github.com/BESTenergytrade/gsy-framework.git@{gsy_framework_branch}"
              ])
 except OSError:
     # Shouldn't happen
@@ -30,9 +30,9 @@ setup(
     name="gsy-e",
     description="decentralised energy exchange developed by Grid Singularity",
     long_description=README,
-    author="GridSingularity",
+    author="GridSingularity, BESTenergytrade",
     author_email="contact@gridsingularity.com",
-    url="https://github.com/gridsingularity/gsy-e",
+    url="https://github.com/BESTenergytrade/gsy-e",
     version=VERSION,
     packages=find_packages(where="src", exclude=["tests"]),
     package_dir={"": "src"},

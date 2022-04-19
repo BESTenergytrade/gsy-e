@@ -19,7 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from gsy_framework.enums import BidOfferMatchAlgoEnum
 from gsy_framework.constants_limits import ConstSettings
 from gsy_framework.matching_algorithms import (
-    PayAsBidMatchingAlgorithm, PayAsClearMatchingAlgorithm)
+    PayAsBidMatchingAlgorithm, PayAsClearMatchingAlgorithm, BestPayAsBidMatchingAlgorithm, 
+    BestPayAsClearMatchingAlgorithm, BestClusterPayAsClearMatchingAlgorithm)
 from gsy_e.gsy_e_core.exceptions import WrongMarketTypeException
 from gsy_e.gsy_e_core.global_objects_singleton import global_objects
 from gsy_e.models.myco_matcher.myco_matcher_interface import MycoMatcherInterface
@@ -46,6 +47,15 @@ class MycoInternalMatcher(MycoMatcherInterface):
         :raises:
             WrongMarketTypeException
         """
+        if (ConstSettings.MASettings.BID_OFFER_MATCH_TYPE == 
+                BidOfferMatchAlgoEnum.BEST_PAB.value):
+            return BestPayAsBidMatchingAlgorithm()
+        if (ConstSettings.MASettings.BID_OFFER_MATCH_TYPE ==
+                BidOfferMatchAlgoEnum.BEST_PAC.value):
+            return BestPayAsClearMatchingAlgorithm()
+        if (ConstSettings.MASettings.BID_OFFER_MATCH_TYPE ==
+                BidOfferMatchAlgoEnum.BEST.value):
+            return BestClusterPayAsClearMatchingAlgorithm()
         if (ConstSettings.MASettings.BID_OFFER_MATCH_TYPE ==
                 BidOfferMatchAlgoEnum.PAY_AS_BID.value):
             return PayAsBidMatchingAlgorithm()
